@@ -1,16 +1,26 @@
+const axios = require('axios');
 const bungieUsername = "dexTdoug"
 const bungieUsercode = 6717
+const apiKey = process.env.APIKEY
 
-async function getResponse() {
-    const response = await fetch(
-        `https://www.bungie.net/Platform/Destiny2/SearchDestinyPlayer/-1/g%236717`,
-        {
-            method: 'GET',
+let options = {
+    host: 'www.bungie.net',
+    path: '/Platform/Destiny2/SearchDestinyPlayer/-1/dexTdoug%236717',
+    headers: { 'x-api-key': apiKey }
+};
+
+async function getUserInfo() {
+    try {
+        console.log('enter')
+        const res = await axios.get(`https://${options.host + options.path}`, {
             headers: {
-                'x-rapidapi-host': 'carbonfootprint1.p.rapidapi.com',
-                'x-rapidapi-key': 'your_api_key'
+                'x-api-key': apiKey
             }
-        }
-    );
-    const data = await response.json(); // Extracting data as a JSON Object from the response
+        });
+        console.log(res.data)
+    } catch (err) {
+        console.log(err)
+    }
 }
+
+getUserInfo()
